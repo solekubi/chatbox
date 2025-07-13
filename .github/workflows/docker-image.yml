@@ -1,0 +1,54 @@
+name: Build Xray
+
+on:
+  workflow_dispatch:
+    inputs:
+      Version:
+        description: "Version"
+        default: "main"
+  # push:
+  #   branches: [ latest ]
+
+env:
+  REGISTRY: docker.io
+  USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  IMAGE_NAME: ${{ github.repository }}
+  XRAY_VERSION: ${{ github.event.inputs.Version }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: latest
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.USERNAME }}
+          password: ${{ env.PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Delete old Workflow Runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 3
