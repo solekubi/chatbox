@@ -14,7 +14,7 @@ env:
   USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   IMAGE_NAME: ${{ github.repository }}
-  XRAY_VERSION: ${{ github.event.inputs.Version }}
+  Version: ${{ github.event.inputs.Version }}
 
 jobs:
   build:

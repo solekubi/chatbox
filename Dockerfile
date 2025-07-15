@@ -1,4 +1,4 @@
-FROM node:18.20.8 AS builder
+FROM node:18.20.8-bullseye AS builder
 
 WORKDIR /app
 
