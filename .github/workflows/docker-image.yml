@@ -1,4 +1,4 @@
-name: Build Xray
+name: Build ChatBox
 
 on:
   workflow_dispatch:
