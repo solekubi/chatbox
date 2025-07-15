@@ -7,7 +7,7 @@ COPY . .
 RUN npm install --legacy-peer-deps && \
     npm run build
 
-FROM nginx:stable-alpine as stage
+FROM nginx:alpine3.22 AS stage
 
 RUN apk add --no-cache tzdata \
   && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
