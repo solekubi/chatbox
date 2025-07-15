@@ -14,7 +14,6 @@ env:
   USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   IMAGE_NAME: ${{ github.repository }}
-  Version: ${{ github.event.inputs.Version }}
 
 jobs:
   build:
@@ -24,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: latest
+          ref: main
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
