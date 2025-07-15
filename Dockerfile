@@ -13,7 +13,7 @@ RUN apk add --no-cache tzdata \
   && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && echo "Asia/Shanghai" > /etc/timezone
 
-COPY --from=build-stage /app/release/app/dist/renderer /usr/share/nginx/html
+COPY --from=builder /app/release/app/dist/renderer /usr/share/nginx/html
 
 EXPOSE 80
 
