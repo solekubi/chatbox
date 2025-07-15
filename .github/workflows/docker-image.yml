@@ -2,12 +2,12 @@ name: Build ChatBox
 
 on:
   workflow_dispatch:
-    inputs:
-      Version:
-        description: "Version"
-        default: "main"
-  # push:
-  #   branches: [ latest ]
+    # inputs:
+    #   Version:
+    #     description: "Version"
+    #     default: "main"
+    push:
+      branches: [ main ]
 
 env:
   REGISTRY: docker.io
